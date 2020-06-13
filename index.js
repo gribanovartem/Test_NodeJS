@@ -1,12 +1,12 @@
 const express = require("express");
-const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
+const bodyParser = require("body-parser");
+const MongoClient = require("mongodb").MongoClient;
 
 const app = express();
 let databaseTodos;
 let db;
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 8003;
 
@@ -17,31 +17,31 @@ const PORT = process.env.PORT || 8003;
 // ];
 
 app.get("/todos", (req, res) => {
-   databaseTodos.find().toArray((err, docs) => {
-      if(err) {
-         console.log(err);
-         res.sendStatus(500);
-      }
-      res.send(docs);
-   });
+   db.collection("Todos")
+      .find()
+      .toArray((err, docs) => {
+         if (err) {
+            console.log(err);
+            res.sendStatus(500);
+         }
+         res.send(docs);
+      });
 });
 app.post("/todos", (req, res) => {
-   todos = [...todos, req.body]
-   res.send(req.body)
+   todos = [...todos, req.body];
+   res.send(req.body);
 });
 
-const uri = "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//   databaseTodos = client.db("ReactTypeScript").collection("Todos");
-//   // perform actions on the collection object
-//   app.listen(PORT);
-//   client.close();
-// });
-client.connect((err, database) => {
-   if(err) {
-      return console.log(err);
-   }
-   db = database;
+const uri =
+   "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
+const client = new MongoClient(uri, {
+   useNewUrlParser: true,
+   useUnifiedTopology: true,
+});
+client.connect((err) => {
+   console.log(client.db("ReactTypeScript").collection("Todos"));
+   databaseTodos = client.db("ReactTypeScript").collection("Todos");
+   // perform actions on the collection object
    app.listen(PORT);
-})
+   client.close();
+});
