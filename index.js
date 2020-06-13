@@ -38,7 +38,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 //   app.listen(PORT);
 //   client.close();
 // });
-MongoClient.connect(uri, (err, database) => {
+client.connect((err, database) => {
    if(err) {
       return console.log(err);
    }
