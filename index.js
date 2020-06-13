@@ -17,7 +17,13 @@ const PORT = process.env.PORT || 8003;
 // ];
 
 app.get("/todos", (req, res) => {
-   databaseTodos.find();
+   databaseTodos.find().toArray((err, docs) => {
+      if(err) {
+         console.log(err);
+         res.sendStatus(500);
+      }
+      res.send(docs);
+   });
 });
 app.post("/todos", (req, res) => {
    todos = [...todos, req.body]
