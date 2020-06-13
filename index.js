@@ -10,22 +10,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 8003;
 
-// const todos = [
-//    { title: "Завершить список дел", id: 23523563463, completed: false },
-//    { title: "Добавить раздел 'Информация'", id: 45673568356, completed: false },
-//    { title: "Начать разработку блога", id: 35684578964, completed: false },
-// ];
+const todos = [
+   { title: "Завершить список дел", id: 23523563463, completed: false },
+   { title: "Добавить раздел 'Информация'", id: 45673568356, completed: false },
+   { title: "Начать разработку блога", id: 35684578964, completed: false },
+];
 
 app.get("/todos", (req, res) => {
-   databaseTodos
-      .find()
-      .toArray((err, docs) => {
-         if (err) {
-            console.log(err);
-            res.sendStatus(500);
-         }
-         res.send(docs);
-      });
+   res.send(todos)
+   // databaseTodos
+   //    .find()
+   //    .toArray((err, docs) => {
+   //       if (err) {
+   //          console.log(err);
+   //          res.sendStatus(500);
+   //       }
+   //       res.send(docs);
+   //    });
 });
 app.post("/todos", (req, res) => {
    todos = [...todos, req.body];
