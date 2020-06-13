@@ -17,8 +17,12 @@ const uri =
    "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect((err) => {
+   if(err) {
+      return console.log(err);
+   }
    const collection = client.db("ReactTypeScript").collection("Todos");
    // perform actions on the collection object
+   console.log(collection);
    app.get("/todos", (req, res) => {
       collection.find().toArray((err, docs) => {
          if (err) {
@@ -29,7 +33,6 @@ client.connect((err) => {
       });
    });
    app.listen(PORT);
-   client.close();
 });
 // app.post("/todos", (req, res) => {
 //    todos = [...todos, req.body];
