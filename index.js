@@ -20,10 +20,10 @@ app.get("/todos", (req, res) => {
    db.collection("Todos")
       .find()
       .toArray((err, docs) => {
-         if (err) {
-            console.log(err);
-            res.sendStatus(500);
-         }
+         // if (err) {
+         //    console.log(err);
+         //    res.sendStatus(500);
+         // }
          res.send(docs);
       });
 });
