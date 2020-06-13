@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 let databaseTodos;
-
+let db;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -32,9 +32,16 @@ app.post("/todos", (req, res) => {
 
 const uri = "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  databaseTodos = client.db("ReactTypeScript").collection("Todos");
-  // perform actions on the collection object
-  app.listen(PORT);
-  client.close();
-});
+// client.connect(err => {
+//   databaseTodos = client.db("ReactTypeScript").collection("Todos");
+//   // perform actions on the collection object
+//   app.listen(PORT);
+//   client.close();
+// });
+MongoClient.connect(uri, (err, database) => {
+   if(err) {
+      return console.log(err);
+   }
+   db = database;
+   app.listen(PORT);
+})
