@@ -23,7 +23,7 @@ client.connect((err) => {
       collection.find().toArray((err, docs) => {
          if (err) {
             console.log(err);
-            res.sendStatus(err);
+            res.sendStatus(500);
          }
          res.send(docs);
       });
