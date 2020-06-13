@@ -16,7 +16,21 @@ const PORT = process.env.PORT || 8003;
 //    { title: "Начать разработку блога", id: 35684578964, completed: false },
 // ];
 
-
+app.get("/todos", (req, res) => {
+   db.collection("Todos")
+      .find()
+      .toArray((err, docs) => {
+         if (err) {
+            console.log(err);
+            res.sendStatus(500);
+         }
+         res.send(docs);
+      });
+});
+app.post("/todos", (req, res) => {
+   todos = [...todos, req.body];
+   res.send(req.body);
+});
 
 const uri =
    "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
@@ -28,21 +42,6 @@ client.connect((err) => {
    console.log(client.db("ReactTypeScript").collection("Todos"));
    databaseTodos = client.db("ReactTypeScript").collection("Todos");
    // perform actions on the collection object
-   app.get("/todos", (req, res) => {
-      db.collection("Todos")
-         .find()
-         .toArray((err, docs) => {
-            if (err) {
-               console.log(err);
-               res.sendStatus(500);
-            }
-            res.send(docs);
-         });
-   });
-   app.post("/todos", (req, res) => {
-      todos = [...todos, req.body];
-      res.send(req.body);
-   });
    app.listen(PORT);
-   // client.close();
+   client.close();
 });
