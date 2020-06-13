@@ -30,6 +30,7 @@ client.connect((err) => {
    // perform actions on the collection object
    console.log(collection);
    app.get("/todos", (req, res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
       collection.find().toArray((err, docs) => {
          if (err) {
             console.log(err);
