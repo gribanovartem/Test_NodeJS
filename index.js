@@ -12,7 +12,7 @@ const todos = [
 
 app.get("/todos", (req, res) => {
    console.log("asgfasdg");
-   return res.send(JSON.stringify(todos));
+   return res.send(todos);
 });
 
 app.listen(PORT);
