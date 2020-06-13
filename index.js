@@ -28,6 +28,7 @@ client.connect((err) => {
          res.send(docs);
       });
    });
+   app.listen(PORT);
    client.close();
 });
 // app.get("/todos", (req, res) => {
