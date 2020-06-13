@@ -18,7 +18,7 @@ app.get("/todos", (req, res) => {
 });
 app.post("/todos", (req, res) => {
    console.log(req.body);
-   res.send('aaaaaaaaaa')
+   res.send(req.body)
 });
 
 app.listen(PORT);
