@@ -1,6 +1,9 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}))
 
 const PORT = process.env.PORT || 8003;
 
@@ -11,8 +14,11 @@ const todos = [
 ];
 
 app.get("/todos", (req, res) => {
-   console.log("asgfasdg");
    return res.send(todos);
+});
+app.post("/todos", (req, res) => {
+   console.log(req.body);
+   res.send('aaaaaaaaaa')
 });
 
 app.listen(PORT);
