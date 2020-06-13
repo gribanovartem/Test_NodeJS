@@ -33,6 +33,7 @@ client.connect((err) => {
       collection.find().toArray((err, docs) => {
          if (err) {
             console.log(err);
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
             res.sendStatus(500);
          }
          res.send(docs);
