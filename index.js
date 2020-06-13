@@ -23,7 +23,7 @@ client.connect((err) => {
       collection.find().toArray((err, docs) => {
          if (err) {
             console.log(err);
-            res.sendStatus(500);
+            res.sendStatus(err);
          }
          res.send(docs);
       });
@@ -31,29 +31,6 @@ client.connect((err) => {
    app.listen(PORT);
    client.close();
 });
-// app.get("/todos", (req, res) => {
-//    client.connect((err) => {
-//       console.log(client.db("ReactTypeScript").collection("Todos"));
-//       databaseTodos = client.db("ReactTypeScript").collection("Todos");
-//       databaseTodos.find().toArray((err, docs) => {
-//          if (err) {
-//             console.log(err);
-//             res.sendStatus(500);
-//          }
-//          res.send(docs);
-//       });
-//    });
-   // res.send(todos);
-   // databaseTodos
-   //    .find()
-   //    .toArray((err, docs) => {
-   //       if (err) {
-   //          console.log(err);
-   //          res.sendStatus(500);
-   //       }
-   //       res.send(docs);
-   //    });
-// });
 // app.post("/todos", (req, res) => {
 //    todos = [...todos, req.body];
 //    res.send(req.body);
