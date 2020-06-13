@@ -17,7 +17,18 @@ const todos = [
 ];
 
 app.get("/todos", (req, res) => {
-   res.send(todos)
+   client.connect((err) => {
+      console.log(client.db("ReactTypeScript").collection("Todos"));
+      databaseTodos = client.db("ReactTypeScript").collection("Todos");
+      databaseTodos.find().toArray((err, docs) => {
+         if (err) {
+            console.log(err);
+            res.sendStatus(500);
+         }
+         res.send(docs);
+      });
+   });
+   // res.send(todos);
    // databaseTodos
    //    .find()
    //    .toArray((err, docs) => {
