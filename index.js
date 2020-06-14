@@ -23,11 +23,49 @@ const todos = [
 
 // const uri =
 //    "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
+// app.get("/todos", (req, res) => {
+//    res.set("Access-Control-Allow-Origin", "*");
+//    res.send(todos);
+// });
+// app.listen(PORT);
+
+const MongoClient = require("mongodb").MongoClient;
+const uri =
+   "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+// const findDocuments = () => {
+//    client.connect((err) => {
+//       const collection = client.db("ReactTypeScript").collection("Todos");
+//       collection.find({}).toArray(function (err, docs) {
+//          console.log("Found the following records");
+//          // console.log(docs);
+//          return docs;
+//       });
+//    });
+// };
+// client.connect((err) => {
+// const collection = client.db("ReactTypeScript").collection("Todos");
+// collection.find({}).toArray(function(err, docs) {
+//    console.log("Found the following records");
+//    console.log(docs)
+//  });;
+// perform actions on the collection object
 app.get("/todos", (req, res) => {
    res.set("Access-Control-Allow-Origin", "*");
-   res.send(todos);
+   client.connect((err) => {
+      const collection = client.db("ReactTypeScript").collection("Todos");
+      collection.find({}).toArray(function (err, docs) {
+         console.log("Found the following records");
+         console.log(docs);
+         res.send(docs);
+      });
+   });
+   
 });
 app.listen(PORT);
+// client.close();
+// });
+
 // app.post("/todos", (req, res) => {
 //    todos = [...todos, req.body];
 //    res.send(req.body);
