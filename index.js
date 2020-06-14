@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const PORT = process.env.PORT || 8003;
+const PORT = 8003;
 
 const todos = [
    {
@@ -29,7 +29,6 @@ let collection;
 client.connect((err) => {
    collection = client.db("ReactTypeScript").collection("Todos");
    app.listen(PORT);
-   
 });
 
 app.options("*", (req, res) => {
@@ -43,6 +42,6 @@ app.get("/todos", (req, res) => {
    collection.find({}).toArray(function (err, docs) {
       console.log("Found the following records");
       console.log(docs);
-      return res.json(docs);
+      res.json(docs);
    });
 });
