@@ -62,10 +62,10 @@ app.get("/todos", (req, res) => {
       collection.find({}).toArray(function (err, docs) {
          console.log("Found the following records");
          console.log(docs);
-         res.send(JSON.stringify(docs));
+         res.send(docs);
       });
    });
-   
+   client.close();
 });
 app.listen(PORT);
 // client.close();
