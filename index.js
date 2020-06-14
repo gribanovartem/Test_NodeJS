@@ -50,23 +50,38 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 //    console.log(docs)
 //  });;
 // perform actions on the collection object
-app.options('*', (req, res) => {
-   res.set('Access-Control-Allow-Origin', '*');
+app.options("*", (req, res) => {
+   res.set("Access-Control-Allow-Origin", "*");
    res.set("Access-Control-Allow-Headers", "Content-Type");
-   res.send('ok');
- });
+   res.send("ok");
+});
 app.get("/todos", (req, res) => {
    res.set("Access-Control-Allow-Origin", "*");
-   client.connect((err) => {
-      const collection = client.db("ReactTypeScript").collection("Todos");
-      collection.find({}).toArray(function (err, docs) {
-         console.log("Found the following records");
-         console.log(docs);
-         res.json({aaa: 123});
-      });
-   });
+   // client.connect((err) => {
+   //    const collection = client.db("ReactTypeScript").collection("Todos");
+   //    collection.find({}).toArray(function (err, docs) {
+   //       console.log("Found the following records");
+   //       console.log(docs);
+   //       res.json({ aaa: 123 });
+   //    });
+   // });
+   getUsersByCity(res);
    client.close();
 });
+var getUsersByCity = function (callback) {
+   client.connect((err) => {
+      const collection = client.db("ReactTypeScript").collection("Todos");
+      collection.find({}).toArray(function (err, data) {
+         if (err) {
+            callback(err);
+            console.log(err);
+         } else {
+            console.log(data);
+            callback.json(data);
+         }
+      });
+   });
+};
 app.listen(PORT);
 // client.close();
 // });
