@@ -55,19 +55,26 @@ app.options('*', (req, res) => {
    res.set("Access-Control-Allow-Headers", "Content-Type");
    res.send('ok');
  });
-app.get("/todos", (req, res) => {
-   res.set("Access-Control-Allow-Origin", "*");
+// app.get("/todos", (req, res) => {
+//    res.set("Access-Control-Allow-Origin", "*");
    client.connect((err) => {
       const collection = client.db("ReactTypeScript").collection("Todos");
-      collection.find({}).toArray(function (err, docs) {
-         console.log("Found the following records");
-         console.log(docs);
-         return res.json(docs);
+      app.get("/todos", (req, res) => {
+         res.set("Access-Control-Allow-Origin", "*");
+         collection.find({}).toArray(function (err, docs) {
+            console.log("Found the following records");
+            console.log(docs);
+            return res.json(docs);
+      });
+      // collection.find({}).toArray(function (err, docs) {
+      //    console.log("Found the following records");
+      //    console.log(docs);
+      //    return res.json(docs);
       });
       client.close();
    });
    
-});
+// });
 app.listen(PORT);
 // client.close();
 // });
