@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const PORT = 8003;
+const PORT = process.env.PORT || 8003;
 
 const todos = [
    {
@@ -21,6 +21,7 @@ const todos = [
    },
 ];
 
+app.use(cors());
 const MongoClient = require("mongodb").MongoClient;
 const uri = "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -42,6 +43,6 @@ app.get("/todos", (req, res) => {
    collection.find({}).toArray(function (err, docs) {
       console.log("Found the following records");
       console.log(docs);
-      res.json(docs);
+      res.json(JSON.stringify.docs);
    });
 });
