@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
-
+const MongoClient = require("mongodb").MongoClient;
 const PORT = process.env.PORT || 8003;
 
 const todos = [
@@ -22,10 +22,11 @@ const todos = [
    },
 ];
 
-app.use(cors());
-const MongoClient = require("mongodb").MongoClient;
+// app.use(cors());
+
 const uri = "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+// const uri = "mongodb://localhost:27017/ReactTypeScript";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 let collection;
 
 client.connect((err) => {
@@ -41,9 +42,9 @@ app.options("*", (req, res) => {
 
 app.get("/todos", (req, res) => {
    res.set("Access-Control-Allow-Origin", "*");
-   collection.find({}).toArray(function (err, docs) {
+   collection.find().toArray(function (err, docs) {
       console.log("Found the following records");
       console.log(docs);
-      res.json(JSON.stringify.docs);
+      res.json(docs);
    });
 });
