@@ -10,23 +10,23 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-const todos = [
-   {
-      id: 23523563463,
-      title: "Завершить список дел",
-      completed: false,
-   },
-   {
-      id: 45673568356,
-      title: "Добавить раздел 'Информация'",
-      completed: false,
-   },
-   {
-      id: 35684578964,
-      title: "Начать разработку блога",
-      completed: false,
-   },
-];
+// const todos = [
+//    {
+//       id: 23523563463,
+//       title: "Завершить список дел",
+//       completed: false,
+//    },
+//    {
+//       id: 45673568356,
+//       title: "Добавить раздел 'Информация'",
+//       completed: false,
+//    },
+//    {
+//       id: 35684578964,
+//       title: "Начать разработку блога",
+//       completed: false,
+//    },
+// ];
 
 // app.use(cors());
 
@@ -36,6 +36,7 @@ let collection;
 
 client.connect((err) => {
    collection = client.db("ReactTypeScript").collection("Todos");
+   collectionPosts = client.db("ReactTypeScript").collection("Posts");
    app.listen(PORT);
 });
 
@@ -74,4 +75,11 @@ app.delete("/todos", function (request, response) {
    if(!request.body) return response.sendStatus(400);
    collection.remove({id: request.body.id});
    response.send(`${request.body.userName} - ${request.body.userAge}`);
+});
+
+app.get("/posts", (req, res) => {
+   res.set("Access-Control-Allow-Origin", "*");
+   collectionPosts.find().sort({_id: -1}).toArray(function (err, docs) {
+      res.json(docs);
+   });
 });
