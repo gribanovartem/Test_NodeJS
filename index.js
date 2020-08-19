@@ -83,3 +83,12 @@ app.get("/posts", (req, res) => {
       res.json(docs);
    });
 });
+
+app.post("/posts", (req, res) => {
+   res.set("Access-Control-Allow-Origin", "*");
+   if(!req.body) return res.sendStatus(400);
+   collectionPosts.insertOne(req.body, (err, results) => {
+      // console.log(results);
+  });
+  res.send('Загружено!');
+});
