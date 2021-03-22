@@ -10,26 +10,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-// const todos = [
-//    {
-//       id: 23523563463,
-//       title: "Завершить список дел",
-//       completed: false,
-//    },
-//    {
-//       id: 45673568356,
-//       title: "Добавить раздел 'Информация'",
-//       completed: false,
-//    },
-//    {
-//       id: 35684578964,
-//       title: "Начать разработку блога",
-//       completed: false,
-//    },
-// ];
-
-// app.use(cors());
-
 const uri = "mongodb+srv://gribanovartem22:159159@reacttypescript-77iet.mongodb.net/ReactTypeScript?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 let collection;
@@ -88,7 +68,12 @@ app.post("/posts", (req, res) => {
    res.set("Access-Control-Allow-Origin", "*");
    if(!req.body) return res.sendStatus(400);
    collectionPosts.insertOne(req.body, (err, results) => {
-      // console.log(results);
+
   });
   res.send('Загружено!');
 });
+app.put("/posts", (req, res) => {
+   res.set("Access-Control-Allow-Origin", "*");
+   collection.update({id: request.body.id}, {$set: {likes : request.body.likes}});
+   response.send(`New likes - ${request.body.likes}`);
+})
