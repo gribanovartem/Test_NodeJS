@@ -74,6 +74,6 @@ app.post("/posts", (req, res) => {
 });
 app.put("/posts", (req, res) => {
    res.set("Access-Control-Allow-Origin", "*");
-   collectionPosts.update({id: request.body.id}, {$set: {likes : request.body.likes}});
-   res.send(`New likes - ${request.body.likes}`);
+   collectionPosts.update({id: req.body.id}, {$set: {likes : req.body.likes}});
+   res.send(`New likes - ${req.body.likes}`);
 })
