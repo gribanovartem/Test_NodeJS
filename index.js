@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
+const ObjectId = require('mongodb').ObjectID;
 const PORT = process.env.PORT || 8003;
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -74,6 +75,6 @@ app.post("/posts", (req, res) => {
 });
 app.put("/posts", (req, res) => {
    res.set("Access-Control-Allow-Origin", "*");
-   collectionPosts.update({id: req.body.id}, {$set: {likes : req.body.likes}});
+   collectionPosts.updateOne({_id: ObjectId(req.body.id)}, {$set: {likes : req.body.likes}});
    res.send(`New likes - ${req.body.likes}`);
 })
